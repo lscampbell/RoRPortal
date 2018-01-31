@@ -1,0 +1,21 @@
+
+.image-wrapper {
+  float:left;
+  border: 2px solid black;
+  -webkit-box-shadow: #000 3px 3px 3px;
+  -moz-box-shadow: #000 3px 3px 3px;
+  box-shadow: #000 3px 3px 3px;
+  margin: 0 40px 20px 0;
+}
+
+.title-wrapper{
+  padding-top: 40px;
+}
+
+button.hover {
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 50px !important;
+}

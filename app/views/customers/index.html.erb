@@ -1,0 +1,25 @@
+<h1>Customers</h1>
+<div class="customers">
+  <table style="width:50%">
+    <tr>
+      <th>Name</th>
+      <th>Supply Points</th>
+      <th>Monthly Consumption</th>
+      <th>Monthly Consumption</th>
+    </tr>
+    <% @customers.each do |cust| %>
+        <tr>
+          <td><%= link_to cust['name'], customer_supply_points_path(cust['name']) %></td>
+          <td><%= link_to 'View supply points', customer_supply_points_path(cust['name']) %></td>
+
+          <% @date_ranges.each do |dr| %>
+              <td>
+                <%= link_to dr[:name],
+                              customer_consumptions_path(cust['name'], starts: dr[:starts], ends: dr[:ends]) %>
+              </td>
+          <% end %>
+        </tr>
+    <% end %>
+
+  </table>
+</div>

@@ -1,0 +1,17 @@
+<div>
+  <div class="image-wrapper">
+    <%= image_tag('stcenergy-icon.png', :alt => 'STC Energy') %>
+  </div>
+  <div class="title-wrapper">
+    <h1>Welcome to STC Bureau Portal</h1>
+    <fieldset>
+
+      <div class="btn-group-lg" role="group" aria-label="...">
+        <label> </label><%= link_to "<i class='fa fa-group'> Customers</i>".html_safe, customers_path, {title: 'Choose from Customer', class: 'btn btn-default'} %>
+        <br>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+

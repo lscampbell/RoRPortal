@@ -1,0 +1,22 @@
+<h3>Monthly Consumptions for '<%= @customer %>' between '<%= @starts %>' and '<%= @ends %>'</h3>
+
+<div class="consumptions">
+  <table>
+    <tr>
+      <th>Supply Point</th>
+      <% @keys.each do |key| %>
+          <th><%= key %></th>
+      <% end %>
+      <th>Total</th>
+    </tr>
+    <% @data.each do |dat| %>
+        <tr>
+          <td><%= dat['reference'] %></td>
+          <% @keys.each do |key| %>
+              <td><%= dat[key] %></td>
+          <% end %>
+          <td><%= dat['Total'] %></td>
+        </tr>
+    <% end %>
+  </table>
+</div>

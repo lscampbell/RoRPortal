@@ -1,0 +1,65 @@
+// Place all the styles related to the charges controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.totals td {
+  background-color: #dedede;
+  font-weight: bold;
+}
+
+.charges {
+  table {
+  th, td {
+    width: 20%;
+  }
+}}
+
+.charge-header {
+  h4 {
+    float: right;
+    width: auto;
+    margin-top: 4px;
+    color: green;
+    &.error {
+      color: red;
+    }
+    &.warning {
+      color: #dea313;
+    }
+  }
+  h3 {
+    float: left;
+    width: auto;
+    margin-top: 0px;
+  }
+}
+
+div.duos-charges,
+div.energy-charges,
+div.dloss-charges,
+div.tloss-charges {
+  .no-charge-message {
+    height: 30px;
+    margin: 10px;
+  }
+  .charge-table {
+    display: none;
+  }
+  .charge-header{
+    height: 40px;
+  }
+  &.has-data {
+    .charge-header{
+      height: 0px;
+    }
+    .no-charge-message {
+      display: none;
+    }
+    .charge-table {
+      display: table;
+    }
+  }
+}
+.options {
+  float: right;
+}
+

@@ -1,0 +1,165 @@
+<div class="options">
+  <span><%= @page_link.intro_text %> <%= link_to(@page_link.link_text, @page_link.url) %></span>
+</div>
+<h3>Charges for supply point '<%= @supply_point_reference -%>' between '<%= @from -%>' and '<%= @to -%>'</h3>
+<div class="charges">
+
+  <fieldset>
+    <div class="duos-charges <%= @charges.duos.has_data %>">
+      <div class="charge-header">
+        <h3>DUOS Charges</h3>
+        <span class="no-charge-message">No DUOS charges found</span>
+        <h4 class="<%= @charges.duos.total.get_class %>">Data integrity <%= @charges.duos.total.integrity_percent %>%
+          (<%= @charges.duos.total.count %>/<%= @charges.expected_periods %>)</h4>
+      </div>
+      <table class="charge-table">
+        <tr>
+          <th>Band</th>
+          <th>Units</th>
+          <th>Unit of Measure</th>
+          <th>Unit Charge</th>
+          <th>Charge &pound;</th>
+        </tr>
+        <% @charges.duos.bands.each do |charge| %>
+            <tr>
+              <td><%= charge.band %></td>
+              <td><%= charge.units %></td>
+              <td><%= charge.uom %></td>
+              <td><%= round_or_blank(charge.unit_charge) %></td>
+              <td><%= format_curr(charge.charge) %></td>
+            </tr>
+        <% end %>
+        <tr class="totals">
+          <td>Total</td>
+          <td><%= @charges.duos.total.kwh %></td>
+          <td></td>
+          <td></td>
+          <td><%= format_curr(@charges.duos.total.charge) %></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="tloss-charges <%= @charges.loss.has_data %>">
+      <div class="charge-header">
+        <h3>Transmission Losses</h3>
+        <span class="no-charge-message">No transmission loss charges found</span>
+        <h4 class="<%= @charges.loss.total.get_class %>">Data integrity <%= @charges.loss.total.integrity_percent %>%
+          (<%= @charges.loss.total.count %>/<%= @charges.expected_periods %>)</h4>
+      </div>
+      <table class="charge-table">
+        <tr>
+          <th>Band</th>
+          <th>Units (kWh)</th>
+          <th>Charge p/kWh</th>
+          <th>Charge &pound;</th>
+        </tr>
+        <% @charges.loss.bands.each do |charge| %>
+            <tr>
+              <td><%= charge.band %></td>
+              <td><%= charge.t_loss_kwh %></td>
+              <td><%= round_or_blank(charge.pence_per_kwh) %></td>
+              <td><%= format_curr(charge.t_loss) %></td>
+            </tr>
+        <% end %>
+        <tr class="totals">
+          <td>Total</td>
+          <td><%= @charges.loss.total.t_loss_kwh %></td>
+          <td></td>
+          <td><%= format_curr(@charges.loss.total.t_loss_charge) %></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dloss-charges <%= @charges.loss.has_data %>">
+      <div class="charge-header">
+        <h3>Distribution Losses</h3>
+        <span class="no-charge-message">No distribution loss charges found</span>
+        <h4 class="<%= @charges.loss.total.get_class %>">Data integrity <%= @charges.loss.total.integrity_percent %>%
+          (<%= @charges.loss.total.count %>/<%= @charges.expected_periods %>)</h4>
+      </div>
+      <table class="charge-table">
+        <tr>
+          <th>Band</th>
+          <th>Units (kWh)</th>
+          <th>Charge p/kWh</th>
+          <th>Charge &pound;</th>
+        </tr>
+        <% @charges.loss.bands.each do |charge| %>
+            <tr>
+              <td><%= charge.band %></td>
+              <td><%= charge.d_loss_kwh %></td>
+              <td><%= round_or_blank(charge.pence_per_kwh) %></td>
+              <td><%= format_curr(charge.d_loss) %></td>
+            </tr>
+        <% end %>
+        <tr class="totals">
+          <td>Total</td>
+          <td><%= @charges.loss.total.d_loss_kwh %></td>
+          <td></td>
+          <td><%= format_curr(@charges.loss.total.d_loss_charge) %></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="energy-charges <%= @charges.energy.has_data %>">
+      <div class="charge-header">
+        <h3>Energy Charges</h3>
+        <span class="no-charge-message">No energy charges found</span>
+        <h4 class="<%= @charges.energy.total.get_class %>"> Data
+          integrity <%= @charges.energy.total.integrity_percent %>%
+          (<%= @charges.energy.total.count %>/<%= @charges.expected_periods %>)</h4>
+      </div>
+      <table class="charge-table">
+        <tr>
+          <th>Band</th>
+          <th>Units (kWh)</th>
+          <th>Charge p/kWh</th>
+          <th>Charge &pound;</th>
+        </tr>
+        <% @charges.energy.bands.each do |charge| %>
+            <tr>
+              <td><%= charge.band %></td>
+              <td><%= charge.kwh %></td>
+              <td><%= round_or_blank(charge.pence_per_kwh) %></td>
+              <td><%= format_curr(charge.energy_cost) %></td>
+            </tr>
+        <% end %>
+        <tr class="totals">
+          <td>Total</td>
+          <td><%= @charges.energy.total.kwh %></td>
+          <td></td>
+          <td><%= format_curr(@charges.energy.total.charge) %></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="cost-summary">
+      <% if @charges.display_total_grid %>
+          <h3>Cost Summary</h3>
+          <table>
+            <tr>
+              <th>Charge Type</th>
+              <th>Units (kWh)</th>
+              <th>Percentage &percnt;</th>
+              <th>Total Charge &pound;</th>
+            </tr>
+            <% @summary.each do |cell| %>
+                <tr>
+                  <td><%= cell[:type] %></td>
+                  <td><%= cell[:units] %></td>
+                  <td><%= cell[:percent] %></td>
+                  <td><%= format_curr(cell[:charge]) %></td>
+                </tr>
+            <% end %>
+            <tr class="totals">
+              <td>Total</td>
+              <td></td>
+              <td><%= 100 %></td>
+              <td><%= format_curr(@charges.total) %></td>
+            </tr>
+      <% end %>
+      </table>
+    </div>
+  </fieldset>
+</div>
+</div>

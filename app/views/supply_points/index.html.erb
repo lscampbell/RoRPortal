@@ -1,0 +1,33 @@
+<h3>Supply Points for '<%= @customer_name %>'</h3>
+<div class="supply-points">
+  <table>
+    <thead>
+      <tr>
+        <th>Reference</th>
+        <th>Charges</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @supply_points.each do |sp| %>
+        <tr id="sp_<%= sp['reference'] %>">
+          <td><%= sp['reference'] %></td>
+          <td>
+            <div class="btn-group btn-group-sm" role="group">
+              <% @date_ranges.each do |dr| %>
+                  <%= link_to(dr[:name], customer_supply_point_charges_path(@customer_name, sp['reference'], from: dr[:from], to: dr[:to]), {class: 'btn btn-default'}) %>
+              <% end %>
+              <%= link_to('Custom', new_customer_supply_point_view_charge_request_path(@customer_name, sp['reference']), {class: 'btn btn-default'}) %>
+            </div>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2" class="pagination-row">
+          <%= paginate @supply_points %>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

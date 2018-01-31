@@ -1,0 +1,20 @@
+<h1>View Charges</h1>
+<%= form_for  @view_charge_request, url: customer_supply_point_view_charge_requests_path(@customer, @supply_point) do |f| -%>
+    <fieldset>
+    <div class="form-group">
+      <%= f.label :supply_point_id %><br/>
+      <%= f.text_field :supply_point_id %>
+    </div>
+    <div class="form-group">
+      <%= f.label :from %><br/>
+      <%= f.date_field :from, autofocus: true %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :to %><br/>
+      <%= f.date_field :to %>
+    </div>
+    </fieldset>
+
+    <%= f.submit 'Show charges', :class => 'btn btn-primary'%>
+<% end -%>
